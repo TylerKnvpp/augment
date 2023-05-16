@@ -1,4 +1,4 @@
-# augment
+# Augment
 
 Tired of prepping for stand-ups or sifting through emails?
 
