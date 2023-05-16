@@ -25,7 +25,33 @@ or run:
 pip install langchain openai streamlit google-auth google-auth-httplib2 google-auth-oauthlib google-api-python-client oauthlib python-dotenv colorama PyGithub googleapiclient
 ```
 
-2. Duplicate `.env.example` and populate:
+2. Generate GitHub Personal access token
+
+To get a GitHub access token, you need to create a Personal Access Token (PAT) from your GitHub account settings. Please follow these steps:
+
+- Go to GitHub's website and log in to your account.
+- Click on your profile picture in the upper-right corner and select "Settings" from the dropdown menu.
+- In the left sidebar, click on "Developer settings".
+- In the left sidebar of the developer settings, click on "Personal access tokens".
+- Click the "Generate new token" button at the top right.
+- You will be asked to enter your password again for security reasons.
+- On the new page, give your token a descriptive name under the "Note" field.
+- Select the scopes (or permissions) you want to grant this token. For reading commits and pull requests, you'll need the repo scope. If you only want to read public information, you can select the public_repo sub-scope.
+- After selecting the scopes, click the "Generate token" button at the bottom of the page.
+
+You'll be taken to a new page that displays your new personal access token. Copy the token and save it somewhere safe immediately - GitHub only shows the token once for security reasons, and you won't be able to see it again.
+
+Remember to keep your Personal Access Tokens secure! They are like passwords - anyone who has your token can make API requests on your behalf. Do not share your tokens with others, and store them securely to prevent unauthorized access to your GitHub account.
+
+3. Enable Gmail API:
+
+- Create a project in the [Google Developers Console](https://console.cloud.google.com).
+- Enable the Gmail API.
+- Create an 0Auth Client Id.
+- Download the JSON key file for your service account.
+- Add the JSON file to the project repo and rename it `credentials.json`
+
+4. Duplicate `.env.example` and populate:
 
 ```
 GMAIL_API_KEY=<your_gmail_api_key>
