@@ -12,6 +12,8 @@ from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 from bs4 import BeautifulSoup, Tag
 from colorama import Fore, Style
+from speech import get_speech_input
+from typing import Any
 
 # Load the environment variables from the .env file
 load_dotenv()
@@ -125,7 +127,14 @@ def truncate_email(email, max_length=4097, safety_margin=1000):
     return " ".join(tokens)
 
 
-def handle_unread_emails(service):
+def handle_unread_emails(service: Any, should_use_voice: bool):
+    def get_user_input(prompt):
+        if should_use_voice:
+            print(Fore.BLUE + prompt)
+            return get_speech_input().lower()
+        else:
+            return input(prompt).lower()
+
     try:
         messages = get_unread_messages(service)
 
@@ -151,8 +160,8 @@ def handle_unread_emails(service):
                     Fore.BLUE
                     + "Do you want to read, archive, move to the next email or do something else?"
                 )
-                action = input("(read/archive/next/do something else): ").lower()
-                if action == "read":
+                action = get_user_input("(read/archive/next/do something else): ")
+                if "read" in action.lower():
                     print(Fore.GREEN + "Summarizing with GPT...")
                     chain = LLMChain(llm=llm, prompt=prompt)
                     try:
@@ -178,8 +187,8 @@ def handle_unread_emails(service):
                         Fore.BLUE
                         + "Do you want to archive this email or move to the next one?"
                     )
-                    action_after_read = input("(archive/next): ").lower()
-                    if action_after_read == "archive":
+                    action_after_read = get_user_input("(archive/next): ")
+                    if "archive" in action_after_read.lower():
                         # This will remove the message from the inbox
                         service.users().messages().modify(
                             userId="me",
@@ -187,11 +196,11 @@ def handle_unread_emails(service):
                             body={"removeLabelIds": ["INBOX"]},
                         ).execute()
                         print(Fore.GREEN + "Email archived.")
-                    elif action_after_read == "next":
+                    elif "next" in action_after_read.lower():
                         print(Fore.WHITE + "Moving to the next email...")
                     else:
                         print(Fore.RED + "Invalid input. Skipping this email.")
-                elif action == "archive":
+                elif "archive" in action.lower():
                     # This will mark the message as read and remove it from the inbox
                     service.users().messages().modify(
                         userId="me",
@@ -199,9 +208,12 @@ def handle_unread_emails(service):
                         body={"removeLabelIds": ["UNREAD", "INBOX"]},
                     ).execute()
                     print(Fore.RED + "Email archived.")
-                elif action == "next":
+                elif "next" in action.lower():
                     print(Fore.WHITE + "Moving to the next email...")
-                elif action == "do something else":
+                elif (
+                    "do something else" in action.lower()
+                    or "back to home" in action.lower()
+                ):
                     return
                 else:
                     print(Fore.RED + "Invalid input. Skipping this email.")
