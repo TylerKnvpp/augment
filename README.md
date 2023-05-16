@@ -1,8 +1,8 @@
 # augment
 
-Hate writing up stand-ups? Want a better way to sift through your email?
+Tired of prepping for stand-ups or sifting through emails?
 
-This project provides an AI-based personal assistant, which can interact with Gmail and Github to perform specific tasks. It can read unread emails from your Gmail account and generate standup updates based on your Github activities. The standup updates are generated using OpenAI's GPT model.
+Augment simplifies your day by automating routine tasks. It integrates with GitHub to track your activities - be it commits or pull requests - and smartly compiles your daily standup updates. The result? A significant reduction in manual overhead and more time for you to focus on what matters most - coding. Sift through your emails quicker with a GPT summarizer and archive directly from the app.
 
 ## Features
 
