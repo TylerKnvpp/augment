@@ -2,11 +2,12 @@ import os
 
 from github import Github
 from datetime import datetime, timedelta
-from dotenv import load_dotenv
 from colorama import Fore, Style
 from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
+from speech import get_speech_input
+from dotenv import load_dotenv
 
 load_dotenv()
 
@@ -108,7 +109,16 @@ def get_yesterdays_activities():
     )
 
 
-def generate_standup():
+def get_user_input(prompt, should_use_voice):
+    if should_use_voice:
+        print(Fore.BLUE + prompt)
+        output = get_speech_input().lower()
+        return output
+    else:
+        return input(prompt).lower()
+
+
+def generate_standup(should_use_voice):
     print(Fore.BLUE + "Fetching yesterday's activities...")
     created_pull_requests, reviewed_pull_requests, commits = get_yesterdays_activities()
     # Join arrays into a single string with newline separators
@@ -118,8 +128,10 @@ def generate_standup():
     print(Fore.GREEN + "Yesterday's activities summarized!")
 
     # Prompt user for today's plan and blockers
-    todays_plan = input("What are you planning to work on today? ")
-    blockers = input("Any blockers you are experiencing? ")
+    todays_plan = get_user_input(
+        "What are you planning to work on today? ", should_use_voice
+    )
+    blockers = get_user_input("Any blockers you are experiencing? ", should_use_voice)
 
     print(Fore.GREEN + "Summarizing with GPT...")
     chain = LLMChain(llm=llm, prompt=prompt)
