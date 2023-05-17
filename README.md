@@ -1,9 +1,5 @@
 # Augment
 
-Tired of prepping for stand-ups or sifting through emails?
-
-Augment simplifies your day by automating routine tasks. It integrates with GitHub to track your activities - be it commits or pull requests - and smartly compiles your daily standup updates. The result? A significant reduction in manual overhead and more time for you to focus on what matters most - coding. Sift through your emails quicker with a GPT summarizer and archive directly from the script.
-
 ## Features
 
 - Check Email: This feature allows you to authenticate with your Gmail account and fetch all unread emails, get summaries of the email from OpenAI's GPT, and the ability to archive emails on the spot.
