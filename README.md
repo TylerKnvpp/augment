@@ -2,7 +2,7 @@
 
 Tired of prepping for stand-ups or sifting through emails?
 
-Augment simplifies your day by automating routine tasks. It integrates with GitHub to track your activities - be it commits or pull requests - and smartly compiles your daily standup updates. The result? A significant reduction in manual overhead and more time for you to focus on what matters most - coding. Sift through your emails quicker with a GPT summarizer and archive directly from the app.
+Augment simplifies your day by automating routine tasks. It integrates with GitHub to track your activities - be it commits or pull requests - and smartly compiles your daily standup updates. The result? A significant reduction in manual overhead and more time for you to focus on what matters most - coding. Sift through your emails quicker with a GPT summarizer and archive directly from the script.
 
 ## Features
 
